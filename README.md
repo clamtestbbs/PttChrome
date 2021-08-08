@@ -1,4 +1,4 @@
-# Clam-Test BBS PttChrome as Websocket Client
+# PttChrome as Clam-Test BBS Websocket Client
 
 [![build and deploy status](https://github.com/clamtestbbs/PttChrome/actions/workflows/deploy-ghpage.yml/badge.svg)](https://github.com/clamtestbbs/PttChrome/actions/workflows/deploy-ghpage.yml)
 

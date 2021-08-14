@@ -3,7 +3,7 @@ on:
   push:
     branches: ctb/dev-update
   schedule:
-    - cron: "15 21 * * 1/5"
+    - cron: "15 21 * * 1,5"
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest

@@ -16,10 +16,11 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Install and Build 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
+      - name: Install and Build
         run: |
               yarn
               yarn build
+              echo "${CNAME_ml}" | tee dist/CNAME
         env:
           PTTCHROME_THEME: 'clam'
           PTTCHROME_PAGE_TITLE: "Clam-Test BBS"
@@ -29,9 +30,6 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
           DEV_PROXY_TARGET: 'https://ws.clam.ml'
           DEV_PROXY_HEADER: 'https://term.clam.ml'
-      - name: Add CNAME
-        run: |
-          echo "${CNAME_ml}" | tee dist/CNAME
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
@@ -39,9 +37,20 @@ jobs:
           BRANCH: gh-pages # The branch the action should deploy to.
           FOLDER: dist # The folder the action should deploy.
           CLEAN: true # Automatically remove deleted files from the deploy branch
-      - name: Add CNAME
+      - name: Install and Build
         run: |
-          echo "${CNAME_moe}" | tee dist/CNAME
+              yarn
+              yarn build
+              echo "${CNAME_moe}" | tee dist/CNAME
+        env:
+          PTTCHROME_THEME: 'clam'
+          PTTCHROME_PAGE_TITLE: "Clam-Test BBS"
+          DEFAULT_SITE: 'wsstelnet://ws.clam.moe/bbs'
+          ALLOW_SITE_IN_QUERY: "no"
+          GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          DEV_PROXY_TARGET: 'https://ws.clam.moe'
+          DEV_PROXY_HEADER: 'https://term.clam.moe'
       - name: Pushes to another repository
         uses: cpina/github-action-push-to-another-repository@main
         env:

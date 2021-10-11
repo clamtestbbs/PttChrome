@@ -22,7 +22,7 @@ jobs:
               yarn build
               echo "${CNAME_ml}" | tee dist/CNAME
         env:
-          PTTCHROME_THEME: 'clam'
+          PTTCHROME_THEME: 'clamtestbbs'
           PTTCHROME_PAGE_TITLE: "殼層體驗 Clam-Test BBS"
           DEFAULT_SITE: 'wsstelnet://ws.clam.ml/bbs'
           ALLOW_SITE_IN_QUERY: "no"
@@ -43,7 +43,7 @@ jobs:
               yarn build
               echo "${CNAME_moe}" | tee dist/CNAME
         env:
-          PTTCHROME_THEME: 'clam'
+          PTTCHROME_THEME: 'clamtestbbs'
           PTTCHROME_PAGE_TITLE: "Clam-Test BBS 殼層體驗"
           DEFAULT_SITE: 'wsstelnet://ws.clam.moe/bbs'
           ALLOW_SITE_IN_QUERY: "no"

@@ -7,6 +7,9 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    env:
+      CNAME_ml: term.clam.ml
+      CNAME_moe: term.clam.moe
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@master # If you're using actions/checkout@v2 you must set persist-credentials to false in most cases for the deployment to work correctly.
@@ -17,7 +20,6 @@ jobs:
         run: |
               yarn
               yarn build
-              cp -v CNAME dist/CNAME
         env:
           PTTCHROME_THEME: 'clam'
           PTTCHROME_PAGE_TITLE: "Clam-Test BBS"
@@ -27,10 +29,26 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
           DEV_PROXY_TARGET: 'https://ws.clam.ml'
           DEV_PROXY_HEADER: 'https://term.clam.ml'
+      - name: Add CNAME
+        run: |
+          echo "${CNAME_ml}" | tee dist/CNAME
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
           BRANCH: gh-pages # The branch the action should deploy to.
           FOLDER: dist # The folder the action should deploy.
           CLEAN: true # Automatically remove deleted files from the deploy branch
+      - name: Add CNAME
+        run: |
+          echo "${CNAME_moe}" | tee dist/CNAME
+      - name: Pushes to another repository
+        uses: cpina/github-action-push-to-another-repository@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.DEPLOY_TOKEN }}
+        with:
+          source-directory: 'dist'
+          destination-github-username: 'clamtestbbs'
+          destination-repository-name: ${{ env.CNAME_moe }}
+          user-email: holishing@ccns.ncku.edu.tw
+          target-branch: master

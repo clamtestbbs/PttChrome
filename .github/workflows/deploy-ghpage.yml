@@ -23,7 +23,7 @@ jobs:
               echo "${CNAME_ml}" | tee dist/CNAME
         env:
           PTTCHROME_THEME: 'clam'
-          PTTCHROME_PAGE_TITLE: "Clam-Test BBS"
+          PTTCHROME_PAGE_TITLE: "殼層體驗 Clam-Test BBS"
           DEFAULT_SITE: 'wsstelnet://ws.clam.ml/bbs'
           ALLOW_SITE_IN_QUERY: "no"
           GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
@@ -44,7 +44,7 @@ jobs:
               echo "${CNAME_moe}" | tee dist/CNAME
         env:
           PTTCHROME_THEME: 'clam'
-          PTTCHROME_PAGE_TITLE: "Clam-Test BBS"
+          PTTCHROME_PAGE_TITLE: "Clam-Test BBS 殼層體驗"
           DEFAULT_SITE: 'wsstelnet://ws.clam.moe/bbs'
           ALLOW_SITE_IN_QUERY: "no"
           GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}

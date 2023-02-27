@@ -16,6 +16,9 @@ jobs:
         with:
           persist-credentials: false
 
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 19
       - name: Install and Build
         run: |
               yarn
@@ -30,6 +33,7 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
           DEV_PROXY_TARGET: 'https://ws.clam.ml'
           DEV_PROXY_HEADER: 'https://term.clam.ml'
+          NODE_OPTIONS: '--openssl-legacy-provider'
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
@@ -51,6 +55,7 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
           DEV_PROXY_TARGET: 'https://ws.clam.moe'
           DEV_PROXY_HEADER: 'https://term.clam.moe'
+          NODE_OPTIONS: '--openssl-legacy-provider'
       - name: Pushes to another repository
         uses: cpina/github-action-push-to-another-repository@main
         env:

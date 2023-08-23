@@ -5,18 +5,22 @@ import { Modal, OverlayTrigger, Tooltip, Button } from "react-bootstrap";
 import { i18n } from "../../js/i18n";
 import "./LiveHelperModal.css";
 
-const normalizeSec = value => {
+const normalizeSec = (value) => {
   const sec = parseInt(value, 10);
   return sec > 1 ? sec : 1;
 };
 
 const enhance = compose(
   withHandlers({
-    onEnabledClick: ({ enabled, sec, onChange }) => () =>
-      onChange({ enabled: !enabled, sec }),
+    onEnabledClick:
+      ({ enabled, sec, onChange }) =>
+      () =>
+        onChange({ enabled: !enabled, sec }),
 
-    onSecChange: ({ enabled, onChange }) => ({ target: { value } }) =>
-      onChange({ enabled, sec: normalizeSec(value) })
+    onSecChange:
+      ({ enabled, onChange }) =>
+      ({ target: { value } }) =>
+        onChange({ enabled, sec: normalizeSec(value) }),
   })
 );
 
@@ -27,9 +31,9 @@ export const LiveHelperModal = ({
   sec,
   // from recompose
   onEnabledClick,
-  onSecChange
+  onSecChange,
 }) => (
-  <Modal show={show}>
+  <Modal show={show} backdrop={false}>
     <Modal.Body className="LiveHelperModal__Body">
       <OverlayTrigger placement="top" overlay={<Tooltip>Alt + r</Tooltip>}>
         <Button active={enabled} onClick={onEnabledClick}>

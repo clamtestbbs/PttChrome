@@ -330,7 +330,9 @@ App.prototype.setInputAreaFocus = function() {
   this.inputArea.focus();
 };
 
+// FIXME: Injected when enabled. See: src/components/ContextMenu/index.js
 App.prototype.onToggleLiveHelperModalState = noop;
+// FIXME: Injected when enabled. See: src/components/ContextMenu/index.js
 App.prototype.onDisableLiveHelperModalState = noop;
 
 App.prototype.switchToEasyReadingMode = function(doSwitch) {
@@ -701,10 +703,10 @@ App.prototype.onMouse_click = function (e) {
       this.conn.send('='); //First post with the same title
       break;
     case 12:
-      this.conn.send('\x1b[D\r\x1b[4~'); //Refresh post / pushed texts
+      this.conn.send('\x1b[D\r\x1b[4~\x1b[4~'); //Refresh post / pushed texts
       break;
     case 13:
-      this.conn.send('\x1b[D\r\x1b[4~[]'); //Last post with the same title (LIST)
+      this.conn.send('\x1b[D\r\x1b[4~\x1b[4~[]'); //Last post with the same title (LIST)
       break;
     case 14:
       this.conn.send('\x1b[D\x1b[4~[]\r'); //Last post with the same title (READING)
@@ -811,7 +813,7 @@ App.prototype.onPrefChange = function(name, value) {
       break;
     case 'mouseBrowsingHighlightColor':
       this.view.highlightBG = value;
-      this.view.redraw(true);
+      this.view.updateHighlightColor();
       this.view.updateCursorPos();
       break;
     case 'mouseLeftFunction':

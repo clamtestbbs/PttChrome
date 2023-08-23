@@ -8,7 +8,7 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     env:
-      CNAME_ml: term.clam.ml
+      CNAME_tw: term.clam.tw
       CNAME_moe: term.clam.moe
     steps:
       - name: Checkout 🛎️
@@ -23,16 +23,16 @@ jobs:
         run: |
               yarn
               yarn build
-              echo "${CNAME_ml}" | tee dist/CNAME
+              echo "${CNAME_tw}" | tee dist/CNAME
         env:
           PTTCHROME_THEME: 'clamtestbbs'
           PTTCHROME_PAGE_TITLE: "殼層體驗 Clam-Test BBS"
-          DEFAULT_SITE: 'wsstelnet://ws.clam.ml/bbs'
+          DEFAULT_SITE: 'wsstelnet://ws.clam.tw/bbs'
           ALLOW_SITE_IN_QUERY: "no"
           GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
           GITHUB_REPOSITORY: ${{ github.repository }}
-          DEV_PROXY_TARGET: 'https://ws.clam.ml'
-          DEV_PROXY_HEADER: 'https://term.clam.ml'
+          DEV_PROXY_TARGET: 'https://ws.clam.tw'
+          DEV_PROXY_HEADER: 'https://term.clam.tw'
           NODE_OPTIONS: '--openssl-legacy-provider'
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.7.1

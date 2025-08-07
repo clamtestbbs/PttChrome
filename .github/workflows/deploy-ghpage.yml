@@ -8,7 +8,6 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     env:
-      CNAME_tw: term.clam.tw
       CNAME_moe: term.clam.moe
     steps:
       - name: Checkout 🛎️
@@ -23,46 +22,23 @@ jobs:
         run: |
               yarn
               yarn build
-              echo "${CNAME_tw}" | tee dist/CNAME
-        env:
-          PTTCHROME_THEME: 'clamtestbbs'
-          PTTCHROME_PAGE_TITLE: "殼層體驗 Clam-Test BBS"
-          DEFAULT_SITE: 'wsstelnet://ws.clam.tw/bbs'
-          ALLOW_SITE_IN_QUERY: "no"
-          GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
-          DEV_PROXY_TARGET: 'https://ws.clam.tw'
-          DEV_PROXY_HEADER: 'https://term.clam.tw'
-          NODE_OPTIONS: '--openssl-legacy-provider'
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@3.7.1
-        with:
-          GITHUB_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
-          BRANCH: gh-pages # The branch the action should deploy to.
-          FOLDER: dist # The folder the action should deploy.
-          CLEAN: true # Automatically remove deleted files from the deploy branch
-      - name: Install and Build
-        run: |
-              yarn
-              yarn build
               echo "${CNAME_moe}" | tee dist/CNAME
         env:
           PTTCHROME_THEME: 'clamtestbbs'
           PTTCHROME_PAGE_TITLE: "Clam-Test BBS 殼層體驗"
-          DEFAULT_SITE: 'wsstelnet://ws.clam.moe/bbs'
+          DEFAULT_SITE: 'wsstelnet://wsst.clam.moe/bbs'
           ALLOW_SITE_IN_QUERY: "no"
           GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
           GITHUB_REPOSITORY: ${{ github.repository }}
-          DEV_PROXY_TARGET: 'https://ws.clam.moe'
+          DEV_PROXY_TARGET: 'https://wsst.clam.moe'
           DEV_PROXY_HEADER: 'https://term.clam.moe'
           NODE_OPTIONS: '--openssl-legacy-provider'
-      - name: Pushes to another repository
-        uses: cpina/github-action-push-to-another-repository@main
-        env:
-          API_TOKEN_GITHUB: ${{ secrets.DEPLOY_TOKEN }}
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          source-directory: 'dist'
-          destination-github-username: 'clamtestbbs'
-          destination-repository-name: ${{ env.CNAME_moe }}
-          user-email: holishing@ccns.ncku.edu.tw
-          target-branch: master
+          personal_token: ${{ secrets.DEPLOY_TOKEN }}
+          external_repository: clamtestbbs/${{ env.CNAME_moe }}
+          publish_branch: master
+          publish_dir: ./dist
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
